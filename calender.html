@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #calender{
+            padding: 50px;
+            margin: 50px;
+            height: auto;
+            width: 520px;
+            background-color: white;
+            border-radius: 20px;
+        }
+        header{
+            display: flex;
+            justify-content: space-between;
+        }
+        .weeks, #days{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            font-size: 20px;
+        }
+        #days{
+            display: grid;
+            grid-template-columns: repeat(7,1fr);
+            font-size: 20px;
+            font-weight: bold;
+            gap: 35px;
+            margin-left: 30px;
+        }
+        .today{
+            border: 1px solid;
+            border-radius: 50%;
+            margin-right:10px ;
+            padding: 5px;
+            background-color: darkcyan;
+            color: white;
+        }
+        .weeks p{
+            color:grey;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <article id="calender">
+        <header>
+            <h2 id="curr-month">Month</h2>
+            <h2 id="curr-year">Year</h2>
+        </header>
+        <section class="weeks">
+            <p>S</p>
+            <p>M</p>
+            <p>T</p>
+            <p>W</p>
+            <p>T</p>
+            <p>F</p>
+            <p>S</p>
+        </section>
+        <hr>
+        <section id="days"></section>
+    </article>
+    
+    <script>
+
+        const date=new Date();
+        date.setDate(15);date.setFullYear(2023);date.setMonth(6);
+        const months=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+        /header/
+        const currMonth=document.getElementById("curr-month");
+        const month=date.getMonth()
+        currMonth.textContent=months[month]
+        const year=date.getFullYear()
+        const currYear=document.getElementById("curr-year");
+        currYear.textContent=date.getFullYear()
+
+        /* days */
+
+        const firstDay=new Date(date.getFullYear(),date.getMonth(),1).getDay();
+
+        const noOfDaysInMonth=new Date(date.getFullYear(),date.getMonth()+1,0).getDate();
+        
+        const curMonth = date.getMonth();
+
+
+        let dayHtml = "";
+        for (let i = 0; i < firstDay; i++) { 
+            dayHtml += "<p class='day'></p>";
+        }
+        for (let day = 1; day <= noOfDaysInMonth; day++) {
+            if (date.getDate() === day) {
+                dayHtml += "<p class='day today'>" + day + "</p>";
+            } else {
+                dayHtml += "<p class='day'>" + day + "</p>";
+            }
+        }
+
+        document.getElementById("days").innerHTML=dayHtml        
+    </script>
+</body>
+</html>
